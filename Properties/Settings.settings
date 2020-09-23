@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Clemakro.MailCheckClient.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="smtpFromName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">John Doe</Value>
+    </Setting>
+    <Setting Name="smtpFromAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">john.doe@example.com</Value>
+    </Setting>
+    <Setting Name="smtpLoginUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)">johndoe</Value>
+    </Setting>
+    <Setting Name="smtpLoginPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="smtpHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="smtpSSL" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="imapLoginUsername" Type="System.String" Scope="User">
+      <Value Profile="(Default)">johndoe</Value>
+    </Setting>
+    <Setting Name="imapLoginPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="imapHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="imapPort" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">993</Value>
+    </Setting>
+    <Setting Name="imapSSL" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="smtpPort" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">587</Value>
+    </Setting>
+    <Setting Name="smtpToAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">john.doe@example.com</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
