@@ -22,6 +22,7 @@ namespace Clemakro.MailCheckClient
             logger.Info("Testing SMTP connection...");
 
             SmtpClient client = new SmtpClient();
+            client.Timeout = Decimal.ToInt32(smtpNetworkTimeoutNumericUpDown.Value)*1000;
             client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
 
             try
@@ -59,6 +60,7 @@ namespace Clemakro.MailCheckClient
             logger.Info("Testing IMAP connection...");
 
             ImapClient client = new ImapClient();
+            client.Timeout = Decimal.ToInt32(smtpNetworkTimeoutNumericUpDown.Value)*1000;
             client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
 
             try

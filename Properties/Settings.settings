@@ -41,5 +41,11 @@
     <Setting Name="smtpToAddress" Type="System.String" Scope="User">
       <Value Profile="(Default)">john.doe@example.com</Value>
     </Setting>
+    <Setting Name="smtpNetworkTimeout" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="imapNetworkTimeout" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -178,5 +178,29 @@ namespace Clemakro.MailCheckClient.Properties {
                 this["smtpToAddress"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public decimal smtpNetworkTimeout {
+            get {
+                return ((decimal)(this["smtpNetworkTimeout"]));
+            }
+            set {
+                this["smtpNetworkTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public decimal imapNetworkTimeout {
+            get {
+                return ((decimal)(this["imapNetworkTimeout"]));
+            }
+            set {
+                this["imapNetworkTimeout"] = value;
+            }
+        }
     }
 }
