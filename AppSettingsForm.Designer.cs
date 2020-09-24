@@ -168,7 +168,7 @@
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.53587F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.46413F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
             this.tableLayoutPanel2.Controls.Add(this.smtpHostTextBox, 0, 1);
             this.tableLayoutPanel2.Controls.Add(smtpHostLabel, 0, 0);
             this.tableLayoutPanel2.Controls.Add(smtpPortLabel, 1, 0);
@@ -214,7 +214,7 @@
             0,
             0});
             this.smtpPortNumericUpDown.Name = "smtpPortNumericUpDown";
-            this.smtpPortNumericUpDown.Size = new System.Drawing.Size(73, 20);
+            this.smtpPortNumericUpDown.Size = new System.Drawing.Size(72, 20);
             this.smtpPortNumericUpDown.TabIndex = 1;
             this.smtpPortNumericUpDown.Value = global::Clemakro.MailCheckClient.Properties.Settings.Default.smtpPort;
             // 
@@ -226,16 +226,16 @@
             this.smtpSSLCheckBox.Checked = global::Clemakro.MailCheckClient.Properties.Settings.Default.smtpSSL;
             this.smtpSSLCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.smtpSSLCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Clemakro.MailCheckClient.Properties.Settings.Default, "smtpSSL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.smtpSSLCheckBox.Location = new System.Drawing.Point(389, 16);
+            this.smtpSSLCheckBox.Location = new System.Drawing.Point(388, 16);
             this.smtpSSLCheckBox.Name = "smtpSSLCheckBox";
-            this.smtpSSLCheckBox.Size = new System.Drawing.Size(80, 17);
+            this.smtpSSLCheckBox.Size = new System.Drawing.Size(81, 17);
             this.smtpSSLCheckBox.TabIndex = 2;
             this.smtpSSLCheckBox.Text = "SSL";
             this.smtpSSLCheckBox.UseVisualStyleBackColor = true;
             // 
             // smtpTestButton
             // 
-            this.smtpTestButton.Location = new System.Drawing.Point(389, 42);
+            this.smtpTestButton.Location = new System.Drawing.Point(388, 42);
             this.smtpTestButton.Name = "smtpTestButton";
             this.smtpTestButton.Size = new System.Drawing.Size(75, 23);
             this.smtpTestButton.TabIndex = 2;
@@ -366,7 +366,7 @@
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.53587F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.46413F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
             this.tableLayoutPanel3.Controls.Add(this.imapHostTextBox, 0, 1);
             this.tableLayoutPanel3.Controls.Add(label1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(label2, 1, 0);
@@ -432,7 +432,7 @@
             0,
             0});
             this.imapPortTextBox.Name = "imapPortTextBox";
-            this.imapPortTextBox.Size = new System.Drawing.Size(73, 20);
+            this.imapPortTextBox.Size = new System.Drawing.Size(72, 20);
             this.imapPortTextBox.TabIndex = 1;
             this.imapPortTextBox.Value = global::Clemakro.MailCheckClient.Properties.Settings.Default.imapPort;
             // 
@@ -444,16 +444,16 @@
             this.imapSSLCheckBox.Checked = global::Clemakro.MailCheckClient.Properties.Settings.Default.imapSSL;
             this.imapSSLCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.imapSSLCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Clemakro.MailCheckClient.Properties.Settings.Default, "imapSSL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.imapSSLCheckBox.Location = new System.Drawing.Point(389, 16);
+            this.imapSSLCheckBox.Location = new System.Drawing.Point(388, 16);
             this.imapSSLCheckBox.Name = "imapSSLCheckBox";
-            this.imapSSLCheckBox.Size = new System.Drawing.Size(80, 17);
+            this.imapSSLCheckBox.Size = new System.Drawing.Size(81, 17);
             this.imapSSLCheckBox.TabIndex = 2;
             this.imapSSLCheckBox.Text = "SSL";
             this.imapSSLCheckBox.UseVisualStyleBackColor = true;
             // 
             // imapTestButton
             // 
-            this.imapTestButton.Location = new System.Drawing.Point(389, 42);
+            this.imapTestButton.Location = new System.Drawing.Point(388, 42);
             this.imapTestButton.Name = "imapTestButton";
             this.imapTestButton.Size = new System.Drawing.Size(75, 23);
             this.imapTestButton.TabIndex = 2;

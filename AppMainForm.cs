@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,15 @@ namespace Clemakro.MailCheckClient
 {
     public partial class AppMainForm : Form
     {
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public AppMainForm()
         {
             InitializeComponent();
+
+            var appender = LogManager.GetRepository().GetAppenders().Where(a => a.Name == "RichTextBoxAppender").FirstOrDefault();
+            if (appender != null)
+                ((RichTextBoxAppender)appender).RichTextBox = loggingRichTextBox;
         }
 
         private void fileExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -24,10 +31,18 @@ namespace Clemakro.MailCheckClient
 
         private void fileSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            logger.Debug("Open settings dialog...");
+
             AppSettingsForm appSettingsForm = new AppSettingsForm();
             if(appSettingsForm.ShowDialog() == DialogResult.OK)
             {
                 Properties.Settings.Default.Save();
+                logger.Debug("Settings saved.");
+            }
+            else
+            {
+                Properties.Settings.Default.Reload();
+                logger.Debug("Settings cancelled.");
             }
 
         }

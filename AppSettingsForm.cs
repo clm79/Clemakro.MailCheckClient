@@ -4,11 +4,14 @@ using MailKit.Net.Smtp;
 using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using MailKit.Net.Imap;
+using log4net;
 
 namespace Clemakro.MailCheckClient
 {
     public partial class AppSettingsForm : Form
     {
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public AppSettingsForm()
         {
             InitializeComponent();
@@ -16,6 +19,8 @@ namespace Clemakro.MailCheckClient
 
         private void smtpTestButton_Click(object sender, EventArgs e)
         {
+            logger.Info("Testing SMTP connection...");
+
             SmtpClient client = new SmtpClient();
             client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
 
@@ -35,10 +40,12 @@ namespace Clemakro.MailCheckClient
                     client.Authenticate(smtpLoginUsernameTextBox.Text, smtpLoginPasswordTextBox.Text);
                 }
 
+                logger.Info("SMTP Test OK");
                 MessageBox.Show(this, "SMTP Test OK", "SMTP Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
+                logger.Error("SMTP Test failed", ex);
                 MessageBox.Show(this, "SMTP Test failed: " + ex.Message, "SMTP Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -49,6 +56,8 @@ namespace Clemakro.MailCheckClient
 
         private void imapTestButton_Click(object sender, EventArgs e)
         {
+            logger.Info("Testing IMAP connection...");
+
             ImapClient client = new ImapClient();
             client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
 
@@ -71,10 +80,12 @@ namespace Clemakro.MailCheckClient
                 MailKit.IMailFolder inbox = client.Inbox;
                 inbox.Open(MailKit.FolderAccess.ReadOnly);
 
+                logger.Info("IMAP Test OK, inbox message count: " + inbox.Count);
                 MessageBox.Show(this, "IMAP Test OK, inbox message count: "+inbox.Count, "IMAP Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
+                logger.Error("IMAP Test failed", ex);
                 MessageBox.Show(this, "IMAP Test failed: " + ex.Message, "IMAP Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
