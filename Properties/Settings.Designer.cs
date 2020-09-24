@@ -202,5 +202,41 @@ namespace Clemakro.MailCheckClient.Properties {
                 this["imapNetworkTimeout"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool mailLoggingEnabled {
+            get {
+                return ((bool)(this["mailLoggingEnabled"]));
+            }
+            set {
+                this["mailLoggingEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string mailLoggingFile {
+            get {
+                return ((string)(this["mailLoggingFile"]));
+            }
+            set {
+                this["mailLoggingFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool upgradeRequired {
+            get {
+                return ((bool)(this["upgradeRequired"]));
+            }
+            set {
+                this["upgradeRequired"] = value;
+            }
+        }
     }
 }

@@ -47,5 +47,14 @@
     <Setting Name="imapNetworkTimeout" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">20</Value>
     </Setting>
+    <Setting Name="mailLoggingEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="mailLoggingFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="upgradeRequired" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

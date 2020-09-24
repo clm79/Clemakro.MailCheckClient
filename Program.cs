@@ -16,6 +16,14 @@ namespace Clemakro.MailCheckClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            if (Properties.Settings.Default.upgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.upgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
+
             Application.Run(new AppMainForm());
         }
     }

@@ -21,7 +21,9 @@ namespace Clemakro.MailCheckClient
 
             var appender = LogManager.GetRepository().GetAppenders().Where(a => a.Name == "RichTextBoxAppender").FirstOrDefault();
             if (appender != null)
+            {
                 ((RichTextBoxAppender)appender).RichTextBox = loggingRichTextBox;
+            }
         }
 
         private void fileExitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -32,19 +34,18 @@ namespace Clemakro.MailCheckClient
         private void fileSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             logger.Debug("Open settings dialog...");
-
-            AppSettingsForm appSettingsForm = new AppSettingsForm();
-            if(appSettingsForm.ShowDialog() == DialogResult.OK)
+            using (AppSettingsForm appSettingsForm = new AppSettingsForm())
             {
-                Properties.Settings.Default.Save();
-                logger.Debug("Settings saved.");
+                if (appSettingsForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    Properties.Settings.Default.Save();
+                    logger.Debug("Settings saved.");
+                }
+                else
+                {
+                    logger.Debug("Settings cancelled.");
+                }
             }
-            else
-            {
-                Properties.Settings.Default.Reload();
-                logger.Debug("Settings cancelled.");
-            }
-
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
 using MailKit.Net.Imap;
 using log4net;
+using System.IO;
+using MailKit;
 
 namespace Clemakro.MailCheckClient
 {
@@ -21,37 +23,39 @@ namespace Clemakro.MailCheckClient
         {
             logger.Info("Testing SMTP connection...");
 
-            SmtpClient client = new SmtpClient();
-            client.Timeout = Decimal.ToInt32(smtpNetworkTimeoutNumericUpDown.Value)*1000;
-            client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
-
-            try
+            using (SmtpClient client = mailLoggingEnabledCheckBox.Checked && mailLoggingFileTextBox.Text.Length>0 ? new SmtpClient(new ProtocolLogger(mailLoggingFileTextBox.Text)) : new SmtpClient())
             {
-                if (smtpSSLCheckBox.Checked)
-                {
-                    client.Connect(smtpHostTextBox.Text, Decimal.ToInt32(smtpPortNumericUpDown.Value), MailKit.Security.SecureSocketOptions.Auto);
-                }
-                else
-                {
-                    client.Connect(smtpHostTextBox.Text, Decimal.ToInt32(smtpPortNumericUpDown.Value), false);
-                }
+                client.Timeout = Decimal.ToInt32(smtpNetworkTimeoutNumericUpDown.Value) * 1000;
+                client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
 
-                if (smtpLoginUsernameTextBox.Text.Length > 0)
+                try
                 {
-                    client.Authenticate(smtpLoginUsernameTextBox.Text, smtpLoginPasswordTextBox.Text);
-                }
+                    if (smtpSSLCheckBox.Checked)
+                    {
+                        client.Connect(smtpHostTextBox.Text, Decimal.ToInt32(smtpPortNumericUpDown.Value), MailKit.Security.SecureSocketOptions.Auto);
+                    }
+                    else
+                    {
+                        client.Connect(smtpHostTextBox.Text, Decimal.ToInt32(smtpPortNumericUpDown.Value), false);
+                    }
 
-                logger.Info("SMTP Test OK");
-                MessageBox.Show(this, "SMTP Test OK", "SMTP Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                logger.Error("SMTP Test failed", ex);
-                MessageBox.Show(this, "SMTP Test failed: " + ex.Message, "SMTP Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                client.Disconnect(true);
+                    if (smtpLoginUsernameTextBox.Text.Length > 0)
+                    {
+                        client.Authenticate(smtpLoginUsernameTextBox.Text, smtpLoginPasswordTextBox.Text);
+                    }
+
+                    logger.Info("SMTP Test OK");
+                    MessageBox.Show(this, "SMTP Test OK", "SMTP Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("SMTP Test failed", ex);
+                    MessageBox.Show(this, "SMTP Test failed: " + ex.Message, "SMTP Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    client.Disconnect(true);
+                }
             }
         }
 
@@ -59,42 +63,43 @@ namespace Clemakro.MailCheckClient
         {
             logger.Info("Testing IMAP connection...");
 
-            ImapClient client = new ImapClient();
-            client.Timeout = Decimal.ToInt32(smtpNetworkTimeoutNumericUpDown.Value)*1000;
-            client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
-
-            try
+            using (ImapClient client = mailLoggingEnabledCheckBox.Checked && mailLoggingFileTextBox.Text.Length > 0 ? new ImapClient(new ProtocolLogger(mailLoggingFileTextBox.Text)) : new ImapClient())
             {
-                if(imapSSLCheckBox.Checked)
+                client.Timeout = Decimal.ToInt32(smtpNetworkTimeoutNumericUpDown.Value) * 1000;
+                client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
+
+                try
                 {
-                    client.Connect(imapHostTextBox.Text, Decimal.ToInt32(imapPortTextBox.Value), MailKit.Security.SecureSocketOptions.Auto);
+                    if (imapSSLCheckBox.Checked)
+                    {
+                        client.Connect(imapHostTextBox.Text, Decimal.ToInt32(imapPortTextBox.Value), MailKit.Security.SecureSocketOptions.Auto);
+                    }
+                    else
+                    {
+                        client.Connect(imapHostTextBox.Text, Decimal.ToInt32(imapPortTextBox.Value), false);
+                    }
+
+                    if (imapLoginPasswordTextBox.Text.Length > 0)
+                    {
+                        client.Authenticate(imapLoginUsernameTextBox.Text, imapLoginPasswordTextBox.Text);
+                    }
+
+                    MailKit.IMailFolder inbox = client.Inbox;
+                    inbox.Open(MailKit.FolderAccess.ReadOnly);
+
+                    logger.Info("IMAP Test OK, inbox message count: " + inbox.Count);
+                    MessageBox.Show(this, "IMAP Test OK, inbox message count: " + inbox.Count, "IMAP Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
+                catch (Exception ex)
                 {
-                    client.Connect(imapHostTextBox.Text, Decimal.ToInt32(imapPortTextBox.Value), false);
+                    logger.Error("IMAP Test failed", ex);
+                    MessageBox.Show(this, "IMAP Test failed: " + ex.Message, "IMAP Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-                if(imapLoginPasswordTextBox.Text.Length>0)
+                finally
                 {
-                    client.Authenticate(imapLoginUsernameTextBox.Text, imapLoginPasswordTextBox.Text);
+                    client.Disconnect(true);
                 }
-
-                MailKit.IMailFolder inbox = client.Inbox;
-                inbox.Open(MailKit.FolderAccess.ReadOnly);
-
-                logger.Info("IMAP Test OK, inbox message count: " + inbox.Count);
-                MessageBox.Show(this, "IMAP Test OK, inbox message count: "+inbox.Count, "IMAP Test", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception ex)
-            {
-                logger.Error("IMAP Test failed", ex);
-                MessageBox.Show(this, "IMAP Test failed: " + ex.Message, "IMAP Test", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                client.Disconnect(true);
-            }
-
         }
 
 
@@ -103,5 +108,18 @@ namespace Clemakro.MailCheckClient
             return true;
         }
 
+        private void mailLoggingFileButton_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.FileName = mailLoggingFileTextBox.Text;
+                DialogResult rs = saveFileDialog.ShowDialog(this);
+                if(rs==DialogResult.OK)
+                {
+                    mailLoggingFileTextBox.Text = saveFileDialog.FileName;
+                }
+            }
+            
+        }
     }
 }
