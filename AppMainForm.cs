@@ -47,5 +47,10 @@ namespace Clemakro.MailCheckClient
                 }
             }
         }
+
+        private void AppMainForm_Load(object sender, EventArgs e)
+        {
+            logger.Info("Loaded, Version "+ System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+        }
     }
 }

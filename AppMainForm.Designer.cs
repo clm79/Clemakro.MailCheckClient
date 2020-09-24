@@ -29,19 +29,43 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.SplitContainer splitContainer1;
+            this.loggingRichTextBox = new System.Windows.Forms.RichTextBox();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.loggingRichTextBox = new System.Windows.Forms.RichTextBox();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.SuspendLayout();
+            this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer1.Location = new System.Drawing.Point(0, 49);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            splitContainer1.Panel1.Controls.Add(this.loggingRichTextBox);
+            splitContainer1.Size = new System.Drawing.Size(784, 490);
+            splitContainer1.SplitterDistance = 261;
+            splitContainer1.TabIndex = 3;
+            // 
+            // loggingRichTextBox
+            // 
+            this.loggingRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loggingRichTextBox.Location = new System.Drawing.Point(0, 0);
+            this.loggingRichTextBox.Name = "loggingRichTextBox";
+            this.loggingRichTextBox.Size = new System.Drawing.Size(784, 261);
+            this.loggingRichTextBox.TabIndex = 0;
+            this.loggingRichTextBox.Text = "";
+            this.loggingRichTextBox.WordWrap = false;
             // 
             // mainMenuStrip
             // 
@@ -92,30 +116,6 @@
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // splitContainer1
-            // 
-            splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            splitContainer1.Location = new System.Drawing.Point(0, 49);
-            splitContainer1.Name = "splitContainer1";
-            splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            splitContainer1.Panel1.Controls.Add(this.loggingRichTextBox);
-            splitContainer1.Size = new System.Drawing.Size(784, 490);
-            splitContainer1.SplitterDistance = 261;
-            splitContainer1.TabIndex = 3;
-            // 
-            // loggingRichTextBox
-            // 
-            this.loggingRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.loggingRichTextBox.Location = new System.Drawing.Point(0, 0);
-            this.loggingRichTextBox.Name = "loggingRichTextBox";
-            this.loggingRichTextBox.Size = new System.Drawing.Size(784, 261);
-            this.loggingRichTextBox.TabIndex = 0;
-            this.loggingRichTextBox.Text = "";
-            this.loggingRichTextBox.WordWrap = false;
-            // 
             // AppMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -128,11 +128,12 @@
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "AppMainForm";
             this.Text = "Mail Check Client";
-            this.mainMenuStrip.ResumeLayout(false);
-            this.mainMenuStrip.PerformLayout();
+            this.Load += new System.EventHandler(this.AppMainForm_Load);
             splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).EndInit();
             splitContainer1.ResumeLayout(false);
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
