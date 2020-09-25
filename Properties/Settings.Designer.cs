@@ -238,5 +238,29 @@ namespace Clemakro.MailCheckClient.Properties {
                 this["upgradeRequired"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public decimal sendInterval {
+            get {
+                return ((decimal)(this["sendInterval"]));
+            }
+            set {
+                this["sendInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public decimal receiveTimeout {
+            get {
+                return ((decimal)(this["receiveTimeout"]));
+            }
+            set {
+                this["receiveTimeout"] = value;
+            }
+        }
     }
 }
