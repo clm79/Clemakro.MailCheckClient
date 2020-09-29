@@ -23,7 +23,7 @@ namespace Clemakro.MailCheckClient
         {
             logger.Info("Testing SMTP connection...");
 
-            using (SmtpClient client = mailLoggingEnabledCheckBox.Checked && mailLoggingFileTextBox.Text.Length>0 ? new SmtpClient(new ProtocolLogger(mailLoggingFileTextBox.Text)) : new SmtpClient())
+            using (SmtpClient client = smtpLoggingEnabledCheckBox.Checked && smtpLoggingFileTextBox.Text.Length>0 ? new SmtpClient(new ProtocolLogger(smtpLoggingFileTextBox.Text)) : new SmtpClient())
             {
                 client.Timeout = Decimal.ToInt32(smtpNetworkTimeoutNumericUpDown.Value) * 1000;
                 client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
@@ -63,7 +63,7 @@ namespace Clemakro.MailCheckClient
         {
             logger.Info("Testing IMAP connection...");
 
-            using (ImapClient client = mailLoggingEnabledCheckBox.Checked && mailLoggingFileTextBox.Text.Length > 0 ? new ImapClient(new ProtocolLogger(mailLoggingFileTextBox.Text)) : new ImapClient())
+            using (ImapClient client = smtpLoggingEnabledCheckBox.Checked && smtpLoggingFileTextBox.Text.Length > 0 ? new ImapClient(new ProtocolLogger(smtpLoggingFileTextBox.Text)) : new ImapClient())
             {
                 client.Timeout = Decimal.ToInt32(smtpNetworkTimeoutNumericUpDown.Value) * 1000;
                 client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
@@ -108,18 +108,34 @@ namespace Clemakro.MailCheckClient
             return true;
         }
 
-        private void mailLoggingFileButton_Click(object sender, EventArgs e)
+        private void smtpLoggingFileButton_Click(object sender, EventArgs e)
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.FileName = mailLoggingFileTextBox.Text;
+                saveFileDialog.Title = "SMTP Logging";
+                saveFileDialog.FileName = smtpLoggingFileTextBox.Text;
                 DialogResult rs = saveFileDialog.ShowDialog(this);
                 if(rs==DialogResult.OK)
                 {
-                    mailLoggingFileTextBox.Text = saveFileDialog.FileName;
+                    smtpLoggingFileTextBox.Text = saveFileDialog.FileName;
                 }
             }
             
+        }
+
+        private void imapLoggingFileButton_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Title = "IMAP Logging";
+                saveFileDialog.FileName = imapLoggingFileTextBox.Text;
+                DialogResult rs = saveFileDialog.ShowDialog(this);
+                if (rs == DialogResult.OK)
+                {
+                    imapLoggingFileTextBox.Text = saveFileDialog.FileName;
+                }
+            }
+
         }
     }
 }

@@ -205,30 +205,6 @@ namespace Clemakro.MailCheckClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool mailLoggingEnabled {
-            get {
-                return ((bool)(this["mailLoggingEnabled"]));
-            }
-            set {
-                this["mailLoggingEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string mailLoggingFile {
-            get {
-                return ((string)(this["mailLoggingFile"]));
-            }
-            set {
-                this["mailLoggingFile"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool upgradeRequired {
             get {
@@ -260,6 +236,54 @@ namespace Clemakro.MailCheckClient.Properties {
             }
             set {
                 this["receiveTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool smtpLoggingEnabled {
+            get {
+                return ((bool)(this["smtpLoggingEnabled"]));
+            }
+            set {
+                this["smtpLoggingEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool imapLoggingEnabled {
+            get {
+                return ((bool)(this["imapLoggingEnabled"]));
+            }
+            set {
+                this["imapLoggingEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string smtpLoggingFile {
+            get {
+                return ((string)(this["smtpLoggingFile"]));
+            }
+            set {
+                this["smtpLoggingFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string imapLoggingFile {
+            get {
+                return ((string)(this["imapLoggingFile"]));
+            }
+            set {
+                this["imapLoggingFile"] = value;
             }
         }
     }

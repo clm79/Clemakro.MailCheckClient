@@ -35,11 +35,13 @@
             System.Windows.Forms.Label smtpHostLabel;
             System.Windows.Forms.Label smtpPortLabel;
             System.Windows.Forms.GroupBox smtpGroupBox;
+            System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
             System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
             System.Windows.Forms.Label label3;
             System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
             System.Windows.Forms.Label smtpToAddressLabel;
             System.Windows.Forms.GroupBox imapGroupBox;
+            System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
             System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
@@ -47,26 +49,29 @@
             System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
             System.Windows.Forms.Label imapLoginUsernameLabel;
             System.Windows.Forms.Label imapLoginPasswordLabel;
-            System.Windows.Forms.GroupBox loggingGroupBox;
-            System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
             System.Windows.Forms.GroupBox groupBox1;
             System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
             System.Windows.Forms.Label label5;
             System.Windows.Forms.Label label6;
+            this.smtpLoggingFileButton = new System.Windows.Forms.Button();
             this.smtpTestButton = new System.Windows.Forms.Button();
+            this.imapLoggingFileButton = new System.Windows.Forms.Button();
             this.imapTestButton = new System.Windows.Forms.Button();
-            this.mailLoggingFileButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.sendIntervalNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.receiveTimeoutNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.imapLoggingFileTextBox = new System.Windows.Forms.TextBox();
+            this.imapLoggingEnabledCheckBox = new System.Windows.Forms.CheckBox();
             this.imapHostTextBox = new System.Windows.Forms.TextBox();
             this.imapPortTextBox = new System.Windows.Forms.NumericUpDown();
             this.imapSSLCheckBox = new System.Windows.Forms.CheckBox();
             this.imapNetworkTimeoutNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.imapLoginUsernameTextBox = new System.Windows.Forms.TextBox();
             this.imapLoginPasswordTextBox = new System.Windows.Forms.TextBox();
+            this.smtpLoggingFileTextBox = new System.Windows.Forms.TextBox();
+            this.smtpLoggingEnabledCheckBox = new System.Windows.Forms.CheckBox();
             this.smtpHostTextBox = new System.Windows.Forms.TextBox();
             this.smtpPortNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.smtpSSLCheckBox = new System.Windows.Forms.CheckBox();
@@ -76,8 +81,6 @@
             this.smtpLoginPasswordTextBox = new System.Windows.Forms.TextBox();
             this.smtpFromNameTextBox = new System.Windows.Forms.TextBox();
             this.smtpFromAddressTextBox = new System.Windows.Forms.TextBox();
-            this.mailLoggingFileTextBox = new System.Windows.Forms.TextBox();
-            this.mailLoggingEnabledCheckBox = new System.Windows.Forms.CheckBox();
             smtpFromNameLabel = new System.Windows.Forms.Label();
             smtpFromAddressLabel = new System.Windows.Forms.Label();
             smtpLoginUsernameLabel = new System.Windows.Forms.Label();
@@ -85,11 +88,13 @@
             smtpHostLabel = new System.Windows.Forms.Label();
             smtpPortLabel = new System.Windows.Forms.Label();
             smtpGroupBox = new System.Windows.Forms.GroupBox();
+            tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             label3 = new System.Windows.Forms.Label();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             smtpToAddressLabel = new System.Windows.Forms.Label();
             imapGroupBox = new System.Windows.Forms.GroupBox();
+            tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
@@ -97,23 +102,21 @@
             tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             imapLoginUsernameLabel = new System.Windows.Forms.Label();
             imapLoginPasswordLabel = new System.Windows.Forms.Label();
-            loggingGroupBox = new System.Windows.Forms.GroupBox();
-            tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             groupBox1 = new System.Windows.Forms.GroupBox();
             tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             label5 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             smtpGroupBox.SuspendLayout();
+            tableLayoutPanel6.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             imapGroupBox.SuspendLayout();
+            tableLayoutPanel8.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
-            loggingGroupBox.SuspendLayout();
-            tableLayoutPanel6.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
             groupBox1.SuspendLayout();
             tableLayoutPanel7.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sendIntervalNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiveTimeoutNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imapPortTextBox)).BeginInit();
@@ -176,7 +179,7 @@
             // 
             smtpPortLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             smtpPortLabel.AutoSize = true;
-            smtpPortLabel.Location = new System.Drawing.Point(162, 0);
+            smtpPortLabel.Location = new System.Drawing.Point(159, 0);
             smtpPortLabel.Name = "smtpPortLabel";
             smtpPortLabel.Size = new System.Drawing.Size(29, 13);
             smtpPortLabel.TabIndex = 2;
@@ -186,15 +189,46 @@
             // 
             smtpGroupBox.AutoSize = true;
             smtpGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            smtpGroupBox.Controls.Add(tableLayoutPanel6);
             smtpGroupBox.Controls.Add(tableLayoutPanel2);
             smtpGroupBox.Controls.Add(tableLayoutPanel1);
             smtpGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            smtpGroupBox.Location = new System.Drawing.Point(0, 48);
+            smtpGroupBox.Location = new System.Drawing.Point(0, 0);
             smtpGroupBox.Name = "smtpGroupBox";
-            smtpGroupBox.Size = new System.Drawing.Size(484, 204);
+            smtpGroupBox.Size = new System.Drawing.Size(484, 233);
             smtpGroupBox.TabIndex = 0;
             smtpGroupBox.TabStop = false;
             smtpGroupBox.Text = "SMTP";
+            // 
+            // tableLayoutPanel6
+            // 
+            tableLayoutPanel6.AutoSize = true;
+            tableLayoutPanel6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel6.ColumnCount = 3;
+            tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.41176F));
+            tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 78.58823F));
+            tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            tableLayoutPanel6.Controls.Add(this.smtpLoggingFileTextBox, 1, 0);
+            tableLayoutPanel6.Controls.Add(this.smtpLoggingEnabledCheckBox, 0, 0);
+            tableLayoutPanel6.Controls.Add(this.smtpLoggingFileButton, 2, 0);
+            tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Top;
+            tableLayoutPanel6.Location = new System.Drawing.Point(3, 201);
+            tableLayoutPanel6.Name = "tableLayoutPanel6";
+            tableLayoutPanel6.RowCount = 1;
+            tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel6.Size = new System.Drawing.Size(478, 29);
+            tableLayoutPanel6.TabIndex = 0;
+            // 
+            // smtpLoggingFileButton
+            // 
+            this.smtpLoggingFileButton.Location = new System.Drawing.Point(424, 3);
+            this.smtpLoggingFileButton.Name = "smtpLoggingFileButton";
+            this.smtpLoggingFileButton.Size = new System.Drawing.Size(41, 23);
+            this.smtpLoggingFileButton.TabIndex = 2;
+            this.smtpLoggingFileButton.Text = "...";
+            this.smtpLoggingFileButton.UseVisualStyleBackColor = true;
+            this.smtpLoggingFileButton.Click += new System.EventHandler(this.smtpLoggingFileButton_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -204,7 +238,7 @@
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70.27027F));
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.72973F));
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
-            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 187F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 192F));
             tableLayoutPanel2.Controls.Add(this.smtpHostTextBox, 0, 1);
             tableLayoutPanel2.Controls.Add(smtpHostLabel, 0, 0);
             tableLayoutPanel2.Controls.Add(smtpPortLabel, 1, 0);
@@ -238,7 +272,7 @@
             // 
             label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(293, 0);
+            label3.Location = new System.Drawing.Point(289, 0);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(140, 13);
             label3.TabIndex = 3;
@@ -289,15 +323,46 @@
             // 
             imapGroupBox.AutoSize = true;
             imapGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            imapGroupBox.Controls.Add(tableLayoutPanel8);
             imapGroupBox.Controls.Add(tableLayoutPanel3);
             imapGroupBox.Controls.Add(tableLayoutPanel4);
             imapGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            imapGroupBox.Location = new System.Drawing.Point(0, 252);
+            imapGroupBox.Location = new System.Drawing.Point(0, 233);
             imapGroupBox.Name = "imapGroupBox";
-            imapGroupBox.Size = new System.Drawing.Size(484, 126);
+            imapGroupBox.Size = new System.Drawing.Size(484, 155);
             imapGroupBox.TabIndex = 1;
             imapGroupBox.TabStop = false;
             imapGroupBox.Text = "IMAP";
+            // 
+            // tableLayoutPanel8
+            // 
+            tableLayoutPanel8.AutoSize = true;
+            tableLayoutPanel8.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel8.ColumnCount = 3;
+            tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.47059F));
+            tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.52941F));
+            tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            tableLayoutPanel8.Controls.Add(this.imapLoggingFileTextBox, 1, 0);
+            tableLayoutPanel8.Controls.Add(this.imapLoggingEnabledCheckBox, 0, 0);
+            tableLayoutPanel8.Controls.Add(this.imapLoggingFileButton, 2, 0);
+            tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Top;
+            tableLayoutPanel8.Location = new System.Drawing.Point(3, 123);
+            tableLayoutPanel8.Name = "tableLayoutPanel8";
+            tableLayoutPanel8.RowCount = 1;
+            tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel8.Size = new System.Drawing.Size(478, 29);
+            tableLayoutPanel8.TabIndex = 1;
+            // 
+            // imapLoggingFileButton
+            // 
+            this.imapLoggingFileButton.Location = new System.Drawing.Point(425, 3);
+            this.imapLoggingFileButton.Name = "imapLoggingFileButton";
+            this.imapLoggingFileButton.Size = new System.Drawing.Size(41, 23);
+            this.imapLoggingFileButton.TabIndex = 2;
+            this.imapLoggingFileButton.Text = "...";
+            this.imapLoggingFileButton.UseVisualStyleBackColor = true;
+            this.imapLoggingFileButton.Click += new System.EventHandler(this.imapLoggingFileButton_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -307,7 +372,7 @@
             tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.11111F));
             tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.88889F));
             tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
-            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 189F));
+            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 194F));
             tableLayoutPanel3.Controls.Add(this.imapHostTextBox, 0, 1);
             tableLayoutPanel3.Controls.Add(label1, 0, 0);
             tableLayoutPanel3.Controls.Add(label2, 1, 0);
@@ -340,7 +405,7 @@
             // 
             label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(162, 0);
+            label2.Location = new System.Drawing.Point(159, 0);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(29, 13);
             label2.TabIndex = 2;
@@ -361,7 +426,7 @@
             // 
             label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(291, 0);
+            label4.Location = new System.Drawing.Point(286, 0);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(140, 13);
             label4.TabIndex = 4;
@@ -409,96 +474,13 @@
             imapLoginPasswordLabel.TabIndex = 5;
             imapLoginPasswordLabel.Text = "Login Password:";
             // 
-            // loggingGroupBox
-            // 
-            loggingGroupBox.AutoSize = true;
-            loggingGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            loggingGroupBox.Controls.Add(tableLayoutPanel6);
-            loggingGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            loggingGroupBox.Location = new System.Drawing.Point(0, 0);
-            loggingGroupBox.Name = "loggingGroupBox";
-            loggingGroupBox.Size = new System.Drawing.Size(484, 48);
-            loggingGroupBox.TabIndex = 2;
-            loggingGroupBox.TabStop = false;
-            loggingGroupBox.Text = "Mail File-Logging";
-            // 
-            // tableLayoutPanel6
-            // 
-            tableLayoutPanel6.AutoSize = true;
-            tableLayoutPanel6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            tableLayoutPanel6.ColumnCount = 3;
-            tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.23529F));
-            tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.76471F));
-            tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            tableLayoutPanel6.Controls.Add(this.mailLoggingFileTextBox, 1, 0);
-            tableLayoutPanel6.Controls.Add(this.mailLoggingEnabledCheckBox, 0, 0);
-            tableLayoutPanel6.Controls.Add(this.mailLoggingFileButton, 2, 0);
-            tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Top;
-            tableLayoutPanel6.Location = new System.Drawing.Point(3, 16);
-            tableLayoutPanel6.Name = "tableLayoutPanel6";
-            tableLayoutPanel6.RowCount = 1;
-            tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel6.Size = new System.Drawing.Size(478, 29);
-            tableLayoutPanel6.TabIndex = 0;
-            // 
-            // mailLoggingFileButton
-            // 
-            this.mailLoggingFileButton.Location = new System.Drawing.Point(430, 3);
-            this.mailLoggingFileButton.Name = "mailLoggingFileButton";
-            this.mailLoggingFileButton.Size = new System.Drawing.Size(41, 23);
-            this.mailLoggingFileButton.TabIndex = 2;
-            this.mailLoggingFileButton.Text = "...";
-            this.mailLoggingFileButton.UseVisualStyleBackColor = true;
-            this.mailLoggingFileButton.Click += new System.EventHandler(this.mailLoggingFileButton_Click);
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.AutoSize = true;
-            this.tableLayoutPanel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel5.ColumnCount = 3;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel5.Controls.Add(this.okButton, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.cancelButton, 2, 0);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 532);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(484, 29);
-            this.tableLayoutPanel5.TabIndex = 2;
-            // 
-            // okButton
-            // 
-            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(325, 3);
-            this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(75, 23);
-            this.okButton.TabIndex = 0;
-            this.okButton.Text = "OK";
-            this.okButton.UseVisualStyleBackColor = true;
-            // 
-            // cancelButton
-            // 
-            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(406, 3);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 1;
-            this.cancelButton.Text = "Cancel";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            // 
             // groupBox1
             // 
             groupBox1.AutoSize = true;
             groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             groupBox1.Controls.Add(tableLayoutPanel7);
             groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            groupBox1.Location = new System.Drawing.Point(0, 378);
+            groupBox1.Location = new System.Drawing.Point(0, 388);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new System.Drawing.Size(484, 71);
             groupBox1.TabIndex = 3;
@@ -545,6 +527,46 @@
             label6.TabIndex = 7;
             label6.Text = "Receive Timeout (seconds):";
             // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.AutoSize = true;
+            this.tableLayoutPanel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel5.ColumnCount = 3;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel5.Controls.Add(this.okButton, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.cancelButton, 2, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 532);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(484, 29);
+            this.tableLayoutPanel5.TabIndex = 2;
+            // 
+            // okButton
+            // 
+            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.okButton.Location = new System.Drawing.Point(325, 3);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.TabIndex = 0;
+            this.okButton.Text = "OK";
+            this.okButton.UseVisualStyleBackColor = true;
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(406, 3);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 1;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
             // sendIntervalNumericUpDown
             // 
             this.sendIntervalNumericUpDown.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Clemakro.MailCheckClient.Properties.Settings.Default, "sendInterval", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -583,6 +605,30 @@
             this.receiveTimeoutNumericUpDown.TabIndex = 1;
             this.receiveTimeoutNumericUpDown.Value = global::Clemakro.MailCheckClient.Properties.Settings.Default.receiveTimeout;
             // 
+            // imapLoggingFileTextBox
+            // 
+            this.imapLoggingFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.imapLoggingFileTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Clemakro.MailCheckClient.Properties.Settings.Default, "imapLoggingFile", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.imapLoggingFileTextBox.Location = new System.Drawing.Point(89, 3);
+            this.imapLoggingFileTextBox.MaxLength = 256;
+            this.imapLoggingFileTextBox.Name = "imapLoggingFileTextBox";
+            this.imapLoggingFileTextBox.Size = new System.Drawing.Size(330, 20);
+            this.imapLoggingFileTextBox.TabIndex = 1;
+            this.imapLoggingFileTextBox.Text = global::Clemakro.MailCheckClient.Properties.Settings.Default.imapLoggingFile;
+            // 
+            // imapLoggingEnabledCheckBox
+            // 
+            this.imapLoggingEnabledCheckBox.AutoSize = true;
+            this.imapLoggingEnabledCheckBox.Checked = global::Clemakro.MailCheckClient.Properties.Settings.Default.imapLoggingEnabled;
+            this.imapLoggingEnabledCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Clemakro.MailCheckClient.Properties.Settings.Default, "imapLoggingEnabled", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.imapLoggingEnabledCheckBox.Location = new System.Drawing.Point(3, 3);
+            this.imapLoggingEnabledCheckBox.Name = "imapLoggingEnabledCheckBox";
+            this.imapLoggingEnabledCheckBox.Size = new System.Drawing.Size(64, 17);
+            this.imapLoggingEnabledCheckBox.TabIndex = 0;
+            this.imapLoggingEnabledCheckBox.Text = "Logging";
+            this.imapLoggingEnabledCheckBox.UseVisualStyleBackColor = true;
+            // 
             // imapHostTextBox
             // 
             this.imapHostTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -591,7 +637,7 @@
             this.imapHostTextBox.Location = new System.Drawing.Point(3, 16);
             this.imapHostTextBox.MaxLength = 256;
             this.imapHostTextBox.Name = "imapHostTextBox";
-            this.imapHostTextBox.Size = new System.Drawing.Size(153, 20);
+            this.imapHostTextBox.Size = new System.Drawing.Size(150, 20);
             this.imapHostTextBox.TabIndex = 0;
             this.imapHostTextBox.Text = global::Clemakro.MailCheckClient.Properties.Settings.Default.imapHost;
             // 
@@ -600,7 +646,7 @@
             this.imapPortTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.imapPortTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Clemakro.MailCheckClient.Properties.Settings.Default, "imapPort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.imapPortTextBox.Location = new System.Drawing.Point(162, 16);
+            this.imapPortTextBox.Location = new System.Drawing.Point(159, 16);
             this.imapPortTextBox.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -612,7 +658,7 @@
             0,
             0});
             this.imapPortTextBox.Name = "imapPortTextBox";
-            this.imapPortTextBox.Size = new System.Drawing.Size(59, 20);
+            this.imapPortTextBox.Size = new System.Drawing.Size(57, 20);
             this.imapPortTextBox.TabIndex = 1;
             this.imapPortTextBox.Value = global::Clemakro.MailCheckClient.Properties.Settings.Default.imapPort;
             // 
@@ -624,7 +670,7 @@
             this.imapSSLCheckBox.Checked = global::Clemakro.MailCheckClient.Properties.Settings.Default.imapSSL;
             this.imapSSLCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.imapSSLCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Clemakro.MailCheckClient.Properties.Settings.Default, "imapSSL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.imapSSLCheckBox.Location = new System.Drawing.Point(227, 16);
+            this.imapSSLCheckBox.Location = new System.Drawing.Point(222, 16);
             this.imapSSLCheckBox.Name = "imapSSLCheckBox";
             this.imapSSLCheckBox.Size = new System.Drawing.Size(58, 17);
             this.imapSSLCheckBox.TabIndex = 2;
@@ -634,7 +680,7 @@
             // imapNetworkTimeoutNumericUpDown
             // 
             this.imapNetworkTimeoutNumericUpDown.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Clemakro.MailCheckClient.Properties.Settings.Default, "imapNetworkTimeout", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.imapNetworkTimeoutNumericUpDown.Location = new System.Drawing.Point(291, 16);
+            this.imapNetworkTimeoutNumericUpDown.Location = new System.Drawing.Point(286, 16);
             this.imapNetworkTimeoutNumericUpDown.Maximum = new decimal(new int[] {
             120,
             0,
@@ -675,6 +721,30 @@
             this.imapLoginPasswordTextBox.Text = global::Clemakro.MailCheckClient.Properties.Settings.Default.imapLoginPassword;
             this.imapLoginPasswordTextBox.UseSystemPasswordChar = true;
             // 
+            // smtpLoggingFileTextBox
+            // 
+            this.smtpLoggingFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.smtpLoggingFileTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Clemakro.MailCheckClient.Properties.Settings.Default, "smtpLoggingFile", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.smtpLoggingFileTextBox.Location = new System.Drawing.Point(93, 3);
+            this.smtpLoggingFileTextBox.MaxLength = 256;
+            this.smtpLoggingFileTextBox.Name = "smtpLoggingFileTextBox";
+            this.smtpLoggingFileTextBox.Size = new System.Drawing.Size(325, 20);
+            this.smtpLoggingFileTextBox.TabIndex = 1;
+            this.smtpLoggingFileTextBox.Text = global::Clemakro.MailCheckClient.Properties.Settings.Default.smtpLoggingFile;
+            // 
+            // smtpLoggingEnabledCheckBox
+            // 
+            this.smtpLoggingEnabledCheckBox.AutoSize = true;
+            this.smtpLoggingEnabledCheckBox.Checked = global::Clemakro.MailCheckClient.Properties.Settings.Default.smtpLoggingEnabled;
+            this.smtpLoggingEnabledCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Clemakro.MailCheckClient.Properties.Settings.Default, "smtpLoggingEnabled", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.smtpLoggingEnabledCheckBox.Location = new System.Drawing.Point(3, 3);
+            this.smtpLoggingEnabledCheckBox.Name = "smtpLoggingEnabledCheckBox";
+            this.smtpLoggingEnabledCheckBox.Size = new System.Drawing.Size(64, 17);
+            this.smtpLoggingEnabledCheckBox.TabIndex = 0;
+            this.smtpLoggingEnabledCheckBox.Text = "Logging";
+            this.smtpLoggingEnabledCheckBox.UseVisualStyleBackColor = true;
+            // 
             // smtpHostTextBox
             // 
             this.smtpHostTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -683,7 +753,7 @@
             this.smtpHostTextBox.Location = new System.Drawing.Point(3, 16);
             this.smtpHostTextBox.MaxLength = 256;
             this.smtpHostTextBox.Name = "smtpHostTextBox";
-            this.smtpHostTextBox.Size = new System.Drawing.Size(153, 20);
+            this.smtpHostTextBox.Size = new System.Drawing.Size(150, 20);
             this.smtpHostTextBox.TabIndex = 0;
             this.smtpHostTextBox.Text = global::Clemakro.MailCheckClient.Properties.Settings.Default.smtpHost;
             // 
@@ -692,7 +762,7 @@
             this.smtpPortNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.smtpPortNumericUpDown.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Clemakro.MailCheckClient.Properties.Settings.Default, "smtpPort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.smtpPortNumericUpDown.Location = new System.Drawing.Point(162, 16);
+            this.smtpPortNumericUpDown.Location = new System.Drawing.Point(159, 16);
             this.smtpPortNumericUpDown.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -704,7 +774,7 @@
             0,
             0});
             this.smtpPortNumericUpDown.Name = "smtpPortNumericUpDown";
-            this.smtpPortNumericUpDown.Size = new System.Drawing.Size(61, 20);
+            this.smtpPortNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.smtpPortNumericUpDown.TabIndex = 1;
             this.smtpPortNumericUpDown.Value = global::Clemakro.MailCheckClient.Properties.Settings.Default.smtpPort;
             // 
@@ -716,7 +786,7 @@
             this.smtpSSLCheckBox.Checked = global::Clemakro.MailCheckClient.Properties.Settings.Default.smtpSSL;
             this.smtpSSLCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.smtpSSLCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Clemakro.MailCheckClient.Properties.Settings.Default, "smtpSSL", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.smtpSSLCheckBox.Location = new System.Drawing.Point(229, 16);
+            this.smtpSSLCheckBox.Location = new System.Drawing.Point(225, 16);
             this.smtpSSLCheckBox.Name = "smtpSSLCheckBox";
             this.smtpSSLCheckBox.Size = new System.Drawing.Size(58, 17);
             this.smtpSSLCheckBox.TabIndex = 2;
@@ -726,7 +796,7 @@
             // smtpNetworkTimeoutNumericUpDown
             // 
             this.smtpNetworkTimeoutNumericUpDown.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Clemakro.MailCheckClient.Properties.Settings.Default, "smtpNetworkTimeout", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.smtpNetworkTimeoutNumericUpDown.Location = new System.Drawing.Point(293, 16);
+            this.smtpNetworkTimeoutNumericUpDown.Location = new System.Drawing.Point(289, 16);
             this.smtpNetworkTimeoutNumericUpDown.Maximum = new decimal(new int[] {
             120,
             0,
@@ -803,30 +873,6 @@
             this.smtpFromAddressTextBox.TabIndex = 1;
             this.smtpFromAddressTextBox.Text = global::Clemakro.MailCheckClient.Properties.Settings.Default.smtpFromAddress;
             // 
-            // mailLoggingFileTextBox
-            // 
-            this.mailLoggingFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.mailLoggingFileTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Clemakro.MailCheckClient.Properties.Settings.Default, "mailLoggingFile", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.mailLoggingFileTextBox.Location = new System.Drawing.Point(72, 3);
-            this.mailLoggingFileTextBox.MaxLength = 256;
-            this.mailLoggingFileTextBox.Name = "mailLoggingFileTextBox";
-            this.mailLoggingFileTextBox.Size = new System.Drawing.Size(352, 20);
-            this.mailLoggingFileTextBox.TabIndex = 1;
-            this.mailLoggingFileTextBox.Text = global::Clemakro.MailCheckClient.Properties.Settings.Default.mailLoggingFile;
-            // 
-            // mailLoggingEnabledCheckBox
-            // 
-            this.mailLoggingEnabledCheckBox.AutoSize = true;
-            this.mailLoggingEnabledCheckBox.Checked = global::Clemakro.MailCheckClient.Properties.Settings.Default.mailLoggingEnabled;
-            this.mailLoggingEnabledCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Clemakro.MailCheckClient.Properties.Settings.Default, "mailLoggingEnabled", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.mailLoggingEnabledCheckBox.Location = new System.Drawing.Point(3, 3);
-            this.mailLoggingEnabledCheckBox.Name = "mailLoggingEnabledCheckBox";
-            this.mailLoggingEnabledCheckBox.Size = new System.Drawing.Size(59, 17);
-            this.mailLoggingEnabledCheckBox.TabIndex = 0;
-            this.mailLoggingEnabledCheckBox.Text = "Enable";
-            this.mailLoggingEnabledCheckBox.UseVisualStyleBackColor = true;
-            // 
             // AppSettingsForm
             // 
             this.AcceptButton = this.okButton;
@@ -838,7 +884,6 @@
             this.Controls.Add(this.tableLayoutPanel5);
             this.Controls.Add(imapGroupBox);
             this.Controls.Add(smtpGroupBox);
-            this.Controls.Add(loggingGroupBox);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AppSettingsForm";
@@ -848,25 +893,25 @@
             this.Text = "Settings";
             smtpGroupBox.ResumeLayout(false);
             smtpGroupBox.PerformLayout();
+            tableLayoutPanel6.ResumeLayout(false);
+            tableLayoutPanel6.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             imapGroupBox.ResumeLayout(false);
             imapGroupBox.PerformLayout();
+            tableLayoutPanel8.ResumeLayout(false);
+            tableLayoutPanel8.PerformLayout();
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel4.PerformLayout();
-            loggingGroupBox.ResumeLayout(false);
-            loggingGroupBox.PerformLayout();
-            tableLayoutPanel6.ResumeLayout(false);
-            tableLayoutPanel6.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             tableLayoutPanel7.ResumeLayout(false);
             tableLayoutPanel7.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.sendIntervalNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.receiveTimeoutNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imapPortTextBox)).EndInit();
@@ -899,10 +944,13 @@
         private System.Windows.Forms.Button imapTestButton;
         private System.Windows.Forms.NumericUpDown smtpNetworkTimeoutNumericUpDown;
         private System.Windows.Forms.NumericUpDown imapNetworkTimeoutNumericUpDown;
-        private System.Windows.Forms.TextBox mailLoggingFileTextBox;
-        private System.Windows.Forms.CheckBox mailLoggingEnabledCheckBox;
-        private System.Windows.Forms.Button mailLoggingFileButton;
+        private System.Windows.Forms.TextBox smtpLoggingFileTextBox;
+        private System.Windows.Forms.CheckBox smtpLoggingEnabledCheckBox;
+        private System.Windows.Forms.Button smtpLoggingFileButton;
         private System.Windows.Forms.NumericUpDown sendIntervalNumericUpDown;
         private System.Windows.Forms.NumericUpDown receiveTimeoutNumericUpDown;
+        private System.Windows.Forms.TextBox imapLoggingFileTextBox;
+        private System.Windows.Forms.CheckBox imapLoggingEnabledCheckBox;
+        private System.Windows.Forms.Button imapLoggingFileButton;
     }
 }

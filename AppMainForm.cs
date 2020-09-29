@@ -217,7 +217,7 @@ namespace Clemakro.MailCheckClient
                 };
 
 
-                using (SmtpClient client = Properties.Settings.Default.mailLoggingEnabled ? new SmtpClient(new ProtocolLogger(Properties.Settings.Default.mailLoggingFile)) : new SmtpClient())
+                using (SmtpClient client = Properties.Settings.Default.smtpLoggingEnabled ? new SmtpClient(new ProtocolLogger(Properties.Settings.Default.smtpLoggingFile)) : new SmtpClient())
                 {
                     client.Timeout = Decimal.ToInt32(Properties.Settings.Default.smtpNetworkTimeout) * 1000;
                     client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
@@ -291,7 +291,7 @@ namespace Clemakro.MailCheckClient
 
             Task receiveTask = Task.Run(() =>
             {
-                using (ImapClient client = Properties.Settings.Default.mailLoggingEnabled ? new ImapClient(new ProtocolLogger(Properties.Settings.Default.mailLoggingFile)) : new ImapClient())
+                using (ImapClient client = Properties.Settings.Default.imapLoggingEnabled ? new ImapClient(new ProtocolLogger(Properties.Settings.Default.imapLoggingFile)) : new ImapClient())
                 {
                     client.Timeout = Decimal.ToInt32(Properties.Settings.Default.imapNetworkTimeout) * 1000;
                     client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
