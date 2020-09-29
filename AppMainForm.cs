@@ -1,6 +1,8 @@
 ﻿using log4net;
 using MailKit;
+using MailKit.Net.Imap;
 using MailKit.Net.Smtp;
+using MailKit.Search;
 using MimeKit;
 using System;
 using System.Collections.Generic;
@@ -68,13 +70,14 @@ namespace Clemakro.MailCheckClient
 
             if (fileRunToolStripMenuItem.Checked)
             {
+                receiveTimer.Stop();
                 sendTimer.Stop();
 
-                lock(mailItems)
+                lock (mailItems)
                 {
-                    foreach(MailItem mailItem in mailItems)
+                    foreach (MailItem mailItem in mailItems)
                     {
-                        if(mailItem.Status == MailItem.StatusType.Sent)
+                        if (mailItem.Status == MailItem.StatusType.Sent)
                         {
                             mailItem.Status = MailItem.StatusType.Cancelled;
                             updateMailListViewItem(mailItem);
@@ -90,15 +93,19 @@ namespace Clemakro.MailCheckClient
             else
             {
                 mailListView.Items.Clear();
-                lock(mailItems)
+                lock (mailItems)
                 {
                     mailItems.Clear();
                 }
 
                 fileSettingsToolStripMenuItem.Enabled = false;
 
+                receiveTimer.Interval = Decimal.ToInt32(Properties.Settings.Default.receiveTimeout) * 1000 / 2;
+                receiveTimer.Start();
+
                 sendTimer.Interval = Decimal.ToInt32(Properties.Settings.Default.sendInterval) * 1000;
                 sendTimer.Start();
+
                 logger.Debug("Job state: Running.");
                 fileRunToolStripMenuItem.Checked = true;
                 jobStateToolStripStatusLabel.Text = "Running";
@@ -114,7 +121,7 @@ namespace Clemakro.MailCheckClient
             listViewItem.Tag = mailItem;
             mailItem.viewItem = listViewItem;
 
-            switch(mailItem.Status)
+            switch (mailItem.Status)
             {
                 case MailItem.StatusType.Cancelled:
                     listViewItem.ForeColor = System.Drawing.Color.Gray;
@@ -231,7 +238,7 @@ namespace Clemakro.MailCheckClient
                             client.Authenticate(Properties.Settings.Default.smtpLoginUsername, Properties.Settings.Default.smtpLoginPassword);
                         }
 
-                        logger.Info("Sending message...");
+                        logger.Info(String.Format("Sending message tick {0}", mailItem.Ticks));
                         client.Send(message);
                         mailItem.Status = MailItem.StatusType.Sent;
                         logger.Info("Message successfully sent.");
@@ -243,7 +250,7 @@ namespace Clemakro.MailCheckClient
                     }
                     finally
                     {
-                        lock(mailItems)
+                        lock (mailItems)
                         {
                             mailItems.Add(mailItem);
                         }
@@ -257,6 +264,112 @@ namespace Clemakro.MailCheckClient
             sendInfoToolStripStatusLabel.Text = "";
             insertMailListViewItem(mailItem);
         }
+
+        private async void receiveTimer_Tick(object sender, EventArgs e)
+        {
+            logger.Debug("Receive Timer Tick");
+
+            bool anyPending = false;
+            lock (mailItems)
+            {
+                foreach (MailItem mailItem in mailItems)
+                {
+                    if (mailItem.Status == MailItem.StatusType.Sent)
+                    {
+                        anyPending = true;
+                        break;
+                    }
+                }
+            }
+            if (!anyPending)
+            {
+                logger.Debug("No pending messages to receive, returning");
+                return;
+            }
+
+            receiveInfoToolStripStatusLabel.Text = "Receiving...";
+
+            Task receiveTask = Task.Run(() =>
+            {
+                using (ImapClient client = Properties.Settings.Default.mailLoggingEnabled ? new ImapClient(new ProtocolLogger(Properties.Settings.Default.mailLoggingFile)) : new ImapClient())
+                {
+                    client.Timeout = Decimal.ToInt32(Properties.Settings.Default.imapNetworkTimeout) * 1000;
+                    client.ServerCertificateValidationCallback = NoSslCertificateValidationCallback;
+
+                    try
+                    {
+                        if (Properties.Settings.Default.imapSSL)
+                        {
+                            client.Connect(Properties.Settings.Default.imapHost, Decimal.ToInt32(Properties.Settings.Default.imapPort), MailKit.Security.SecureSocketOptions.Auto);
+                        }
+                        else
+                        {
+                            client.Connect(Properties.Settings.Default.imapHost, Decimal.ToInt32(Properties.Settings.Default.imapPort), false);
+                        }
+
+                        client.Authenticate(Properties.Settings.Default.imapLoginUsername, Properties.Settings.Default.imapLoginPassword);
+
+                        client.Inbox.Open(FolderAccess.ReadWrite);
+
+                        lock (mailItems)
+                        {
+                            foreach (MailItem mailItem in mailItems)
+                            {
+                                if (mailItem.Status == MailItem.StatusType.Sent)
+                                {
+                                    logger.Debug("Search...");
+                                    IList<UniqueId> mailList = client.Inbox.Search(SearchQuery.SubjectContains(String.Format("Mail Check Client {0}", mailItem.Ticks)));
+                                    if (mailList.Count == 1)
+                                    {
+                                        DateTime now = DateTime.Now;
+
+                                        if (DateTime.Compare(mailItem.TimeoutTimestamp, now) < 0)
+                                        {
+                                            client.Inbox.AddFlags(mailList.First(), MessageFlags.Flagged, true);
+                                            mailItem.Status = MailItem.StatusType.TimedOut;
+                                            logger.Warn(String.Format("Found timed out mail tick {0}, mark flagged", mailItem.Ticks));
+                                        }
+                                        else
+                                        {
+                                            client.Inbox.AddFlags(mailList.First(), MessageFlags.Seen, true);
+                                            mailItem.Status = MailItem.StatusType.Received;
+                                            logger.Info(String.Format("Found in time mail tick {0}, mark read", mailItem.Ticks));
+                                        }
+
+                                        Action operation = () => {
+                                            updateMailListViewItem(mailItem);
+                                        };
+                                        Invoke(operation);
+                                    }
+                                    else if(mailList.Count>1)
+                                    {
+                                        logger.Error(String.Format("More than 1 search result for mail tick {0}!!!???", mailItem.Ticks));
+                                    }
+                                    else
+                                    {
+                                        logger.Debug(String.Format("Did not find mail tick {0} yet", mailItem.Ticks));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error("Receiving mail failed", ex);
+                    }
+                    finally
+                    {
+                        client.Disconnect(true);
+                    }
+                }
+            });
+
+            await (receiveTask);
+            receiveTask.Dispose();
+
+            receiveInfoToolStripStatusLabel.Text = "";
+        }
+
 
         private static bool NoSslCertificateValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {

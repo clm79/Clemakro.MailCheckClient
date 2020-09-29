@@ -30,15 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.SplitContainer splitContainer1;
-            System.Windows.Forms.MenuStrip mainMenuStrip;
-            System.Windows.Forms.ToolStrip toolStrip1;
-            System.Windows.Forms.StatusStrip statusStrip1;
             System.Windows.Forms.ColumnHeader columnHeader1;
             System.Windows.Forms.ColumnHeader columnHeader2;
             System.Windows.Forms.ColumnHeader columnHeader3;
             System.Windows.Forms.ColumnHeader columnHeader4;
             System.Windows.Forms.ColumnHeader columnHeader5;
+            System.Windows.Forms.MenuStrip mainMenuStrip;
+            System.Windows.Forms.ToolStrip toolStrip1;
+            System.Windows.Forms.StatusStrip statusStrip1;
             this.loggingRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.mailListView = new System.Windows.Forms.ListView();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,16 +47,17 @@
             this.jobStateToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.sendInfoToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.sendTimer = new System.Windows.Forms.Timer(this.components);
-            this.mailListView = new System.Windows.Forms.ListView();
+            this.receiveTimer = new System.Windows.Forms.Timer(this.components);
+            this.receiveInfoToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
-            mainMenuStrip = new System.Windows.Forms.MenuStrip();
-            toolStrip1 = new System.Windows.Forms.ToolStrip();
-            statusStrip1 = new System.Windows.Forms.StatusStrip();
             columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            toolStrip1 = new System.Windows.Forms.ToolStrip();
+            statusStrip1 = new System.Windows.Forms.StatusStrip();
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -91,6 +93,50 @@
             this.loggingRichTextBox.TabIndex = 0;
             this.loggingRichTextBox.Text = "";
             this.loggingRichTextBox.WordWrap = false;
+            // 
+            // mailListView
+            // 
+            this.mailListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            columnHeader1,
+            columnHeader2,
+            columnHeader3,
+            columnHeader4,
+            columnHeader5});
+            this.mailListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mailListView.FullRowSelect = true;
+            this.mailListView.GridLines = true;
+            this.mailListView.HideSelection = false;
+            this.mailListView.Location = new System.Drawing.Point(0, 0);
+            this.mailListView.Name = "mailListView";
+            this.mailListView.Size = new System.Drawing.Size(784, 225);
+            this.mailListView.TabIndex = 0;
+            this.mailListView.UseCompatibleStateImageBehavior = false;
+            this.mailListView.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "Status";
+            columnHeader1.Width = 100;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Timestamp";
+            columnHeader2.Width = 160;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Ticks";
+            columnHeader3.Width = 160;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "To-Address";
+            columnHeader4.Width = 160;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "Timeout";
+            columnHeader5.Width = 160;
             // 
             // mainMenuStrip
             // 
@@ -145,7 +191,8 @@
             // 
             statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.jobStateToolStripStatusLabel,
-            this.sendInfoToolStripStatusLabel});
+            this.sendInfoToolStripStatusLabel,
+            this.receiveInfoToolStripStatusLabel});
             statusStrip1.Location = new System.Drawing.Point(0, 539);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new System.Drawing.Size(784, 22);
@@ -167,49 +214,14 @@
             // 
             this.sendTimer.Tick += new System.EventHandler(this.sendTimer_Tick);
             // 
-            // mailListView
+            // receiveTimer
             // 
-            this.mailListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            columnHeader1,
-            columnHeader2,
-            columnHeader3,
-            columnHeader4,
-            columnHeader5});
-            this.mailListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mailListView.FullRowSelect = true;
-            this.mailListView.GridLines = true;
-            this.mailListView.HideSelection = false;
-            this.mailListView.Location = new System.Drawing.Point(0, 0);
-            this.mailListView.Name = "mailListView";
-            this.mailListView.Size = new System.Drawing.Size(784, 225);
-            this.mailListView.TabIndex = 0;
-            this.mailListView.UseCompatibleStateImageBehavior = false;
-            this.mailListView.View = System.Windows.Forms.View.Details;
+            this.receiveTimer.Tick += new System.EventHandler(this.receiveTimer_Tick);
             // 
-            // columnHeader1
+            // receiveInfoToolStripStatusLabel
             // 
-            columnHeader1.Text = "Status";
-            columnHeader1.Width = 100;
-            // 
-            // columnHeader2
-            // 
-            columnHeader2.Text = "Timestamp";
-            columnHeader2.Width = 160;
-            // 
-            // columnHeader3
-            // 
-            columnHeader3.Text = "Ticks";
-            columnHeader3.Width = 160;
-            // 
-            // columnHeader4
-            // 
-            columnHeader4.Text = "To-Address";
-            columnHeader4.Width = 160;
-            // 
-            // columnHeader5
-            // 
-            columnHeader5.Text = "Timeout";
-            columnHeader5.Width = 160;
+            this.receiveInfoToolStripStatusLabel.Name = "receiveInfoToolStripStatusLabel";
+            this.receiveInfoToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // AppMainForm
             // 
@@ -247,6 +259,8 @@
         private System.Windows.Forms.ToolStripMenuItem fileRunToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel sendInfoToolStripStatusLabel;
         private System.Windows.Forms.ListView mailListView;
+        private System.Windows.Forms.Timer receiveTimer;
+        private System.Windows.Forms.ToolStripStatusLabel receiveInfoToolStripStatusLabel;
     }
 }
 
