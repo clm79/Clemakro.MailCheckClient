@@ -22,6 +22,8 @@ namespace Clemakro.MailCheckClient
     {
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        private List<MailItem> mailItems = new List<MailItem>();
+
         public AppMainForm()
         {
             InitializeComponent();
@@ -67,6 +69,19 @@ namespace Clemakro.MailCheckClient
             if (fileRunToolStripMenuItem.Checked)
             {
                 sendTimer.Stop();
+
+                lock(mailItems)
+                {
+                    foreach(MailItem mailItem in mailItems)
+                    {
+                        if(mailItem.Status == MailItem.StatusType.Sent)
+                        {
+                            mailItem.Status = MailItem.StatusType.Cancelled;
+                            updateMailListViewItem(mailItem);
+                        }
+                    }
+                }
+
                 logger.Debug("Job state: Stopped.");
                 fileRunToolStripMenuItem.Checked = false;
                 fileSettingsToolStripMenuItem.Enabled = true;
@@ -74,6 +89,12 @@ namespace Clemakro.MailCheckClient
             }
             else
             {
+                mailListView.Items.Clear();
+                lock(mailItems)
+                {
+                    mailItems.Clear();
+                }
+
                 fileSettingsToolStripMenuItem.Enabled = false;
 
                 sendTimer.Interval = Decimal.ToInt32(Properties.Settings.Default.sendInterval) * 1000;
@@ -84,6 +105,68 @@ namespace Clemakro.MailCheckClient
 
                 sendTimer_Tick(null, null);
             }
+
+        }
+
+        private void insertMailListViewItem(MailItem mailItem)
+        {
+            ListViewItem listViewItem = new ListViewItem(String.Format("{0}", mailItem.Status));
+            listViewItem.Tag = mailItem;
+            mailItem.viewItem = listViewItem;
+
+            switch(mailItem.Status)
+            {
+                case MailItem.StatusType.Cancelled:
+                    listViewItem.ForeColor = System.Drawing.Color.Gray;
+                    break;
+                case MailItem.StatusType.Error:
+                    listViewItem.ForeColor = System.Drawing.Color.Red;
+                    break;
+                case MailItem.StatusType.Received:
+                    listViewItem.ForeColor = System.Drawing.Color.Green;
+                    break;
+                case MailItem.StatusType.Sent:
+                    listViewItem.ForeColor = System.Drawing.Color.Black;
+                    break;
+                case MailItem.StatusType.TimedOut:
+                    listViewItem.ForeColor = System.Drawing.Color.Red;
+                    break;
+                default:
+                    listViewItem.ForeColor = System.Drawing.Color.Black;
+                    break;
+            }
+
+            listViewItem.SubItems.Add(String.Format("{0}", mailItem.Timestamp));
+            listViewItem.SubItems.Add(String.Format("{0}", mailItem.Ticks));
+            listViewItem.SubItems.Add(String.Format("{0}", mailItem.ToAddress));
+            listViewItem.SubItems.Add(String.Format("{0}", mailItem.TimeoutTimestamp));
+            mailListView.Items.Insert(0, listViewItem);
+        }
+
+        private void updateMailListViewItem(MailItem mailItem)
+        {
+            mailItem.viewItem.Text = String.Format("{0}", mailItem.Status);
+            switch (mailItem.Status)
+            {
+                case MailItem.StatusType.Cancelled:
+                    mailItem.viewItem.ForeColor = System.Drawing.Color.Gray;
+                    break;
+                case MailItem.StatusType.Error:
+                    mailItem.viewItem.ForeColor = System.Drawing.Color.Red;
+                    break;
+                case MailItem.StatusType.Received:
+                    mailItem.viewItem.ForeColor = System.Drawing.Color.Green;
+                    break;
+                case MailItem.StatusType.Sent:
+                    mailItem.viewItem.ForeColor = System.Drawing.Color.Black;
+                    break;
+                case MailItem.StatusType.TimedOut:
+                    mailItem.viewItem.ForeColor = System.Drawing.Color.Red;
+                    break;
+                default:
+                    mailItem.viewItem.ForeColor = System.Drawing.Color.Black;
+                    break;
+            }
         }
 
         private async void sendTimer_Tick(object sender, EventArgs e)
@@ -91,9 +174,15 @@ namespace Clemakro.MailCheckClient
             logger.Debug("Send Timer Tick");
             sendInfoToolStripStatusLabel.Text = "Sending...";
 
+            MailItem mailItem = new MailItem();
+            mailItem.Timestamp = DateTime.Now;
+            mailItem.Ticks = mailItem.Timestamp.Ticks;
+            mailItem.ToAddress = Properties.Settings.Default.smtpToAddress;
+            mailItem.TimeoutTimestamp = mailItem.Timestamp.AddSeconds(Decimal.ToDouble(Properties.Settings.Default.receiveTimeout));
+
             Task sendTask = Task.Run(() =>
             {
-                long ticks = DateTime.Now.Ticks;
+
 
                 string hostName = Dns.GetHostName();
                 string hostIPv4 = "unknown";
@@ -106,8 +195,8 @@ namespace Clemakro.MailCheckClient
 
                 MimeMessage message = new MimeMessage();
                 message.From.Add(new MailboxAddress(Properties.Settings.Default.smtpFromName, Properties.Settings.Default.smtpFromAddress));
-                message.To.Add(MailboxAddress.Parse(Properties.Settings.Default.smtpToAddress));
-                message.Subject = String.Format("Mail Check Client {0}", ticks);
+                message.To.Add(MailboxAddress.Parse(mailItem.ToAddress));
+                message.Subject = String.Format("Mail Check Client {0}", mailItem.Ticks);
 
                 message.Body = new TextPart("plain")
                 {
@@ -115,12 +204,11 @@ namespace Clemakro.MailCheckClient
                         "Hello\n\nThis e-mail was automatically generated by Mail Check Client.\n\nVersion: {0}\nClient-Host: {1} ({2})\nClient-Timestamp: {3}\nTicks: {4}\n\nEnd of message.",
                         System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
                         hostName, hostIPv4,
-                        DateTime.Now,
-                        ticks
+                        mailItem.Timestamp,
+                        mailItem.Ticks
                         )
                 };
 
-                
 
                 using (SmtpClient client = Properties.Settings.Default.mailLoggingEnabled ? new SmtpClient(new ProtocolLogger(Properties.Settings.Default.mailLoggingFile)) : new SmtpClient())
                 {
@@ -145,14 +233,20 @@ namespace Clemakro.MailCheckClient
 
                         logger.Info("Sending message...");
                         client.Send(message);
+                        mailItem.Status = MailItem.StatusType.Sent;
                         logger.Info("Message successfully sent.");
                     }
                     catch (Exception ex)
                     {
+                        mailItem.Status = MailItem.StatusType.Error;
                         logger.Error("Sending mail failed", ex);
                     }
                     finally
                     {
+                        lock(mailItems)
+                        {
+                            mailItems.Add(mailItem);
+                        }
                         client.Disconnect(true);
                     }
                 }
@@ -161,6 +255,7 @@ namespace Clemakro.MailCheckClient
             await (sendTask);
             sendTask.Dispose();
             sendInfoToolStripStatusLabel.Text = "";
+            insertMailListViewItem(mailItem);
         }
 
         private static bool NoSslCertificateValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)

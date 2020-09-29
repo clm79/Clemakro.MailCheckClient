@@ -32,11 +32,11 @@ namespace Clemakro.MailCheckClient
                     break;
 
                 case "INFO":
-                    selectionColor = System.Drawing.Color.Teal;
+                    selectionColor = System.Drawing.Color.Black;
                     break;
 
                 case "DEBUG":
-                    selectionColor = System.Drawing.Color.Green;
+                    selectionColor = System.Drawing.Color.LightGray;
                     break;
 
                 default:

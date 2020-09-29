@@ -33,20 +33,32 @@
             System.Windows.Forms.MenuStrip mainMenuStrip;
             System.Windows.Forms.ToolStrip toolStrip1;
             System.Windows.Forms.StatusStrip statusStrip1;
+            System.Windows.Forms.ColumnHeader columnHeader1;
+            System.Windows.Forms.ColumnHeader columnHeader2;
+            System.Windows.Forms.ColumnHeader columnHeader3;
+            System.Windows.Forms.ColumnHeader columnHeader4;
+            System.Windows.Forms.ColumnHeader columnHeader5;
             this.loggingRichTextBox = new System.Windows.Forms.RichTextBox();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jobStateToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.sendTimer = new System.Windows.Forms.Timer(this.components);
-            this.fileRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendInfoToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.sendTimer = new System.Windows.Forms.Timer(this.components);
+            this.mailListView = new System.Windows.Forms.ListView();
             splitContainer1 = new System.Windows.Forms.SplitContainer();
             mainMenuStrip = new System.Windows.Forms.MenuStrip();
             toolStrip1 = new System.Windows.Forms.ToolStrip();
             statusStrip1 = new System.Windows.Forms.StatusStrip();
+            columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
             mainMenuStrip.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -62,6 +74,10 @@
             // splitContainer1.Panel1
             // 
             splitContainer1.Panel1.Controls.Add(this.loggingRichTextBox);
+            // 
+            // splitContainer1.Panel2
+            // 
+            splitContainer1.Panel2.Controls.Add(this.mailListView);
             splitContainer1.Size = new System.Drawing.Size(784, 490);
             splitContainer1.SplitterDistance = 261;
             splitContainer1.TabIndex = 3;
@@ -96,17 +112,24 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // fileRunToolStripMenuItem
+            // 
+            this.fileRunToolStripMenuItem.Name = "fileRunToolStripMenuItem";
+            this.fileRunToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.fileRunToolStripMenuItem.Text = "&Run";
+            this.fileRunToolStripMenuItem.Click += new System.EventHandler(this.fileRunToolStripMenuItem_Click);
+            // 
             // fileSettingsToolStripMenuItem
             // 
             this.fileSettingsToolStripMenuItem.Name = "fileSettingsToolStripMenuItem";
-            this.fileSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fileSettingsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.fileSettingsToolStripMenuItem.Text = "&Settings...";
             this.fileSettingsToolStripMenuItem.Click += new System.EventHandler(this.fileSettingsToolStripMenuItem_Click);
             // 
             // fileExitToolStripMenuItem
             // 
             this.fileExitToolStripMenuItem.Name = "fileExitToolStripMenuItem";
-            this.fileExitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fileExitToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.fileExitToolStripMenuItem.Text = "E&xit";
             this.fileExitToolStripMenuItem.Click += new System.EventHandler(this.fileExitToolStripMenuItem_Click);
             // 
@@ -135,21 +158,58 @@
             this.jobStateToolStripStatusLabel.Size = new System.Drawing.Size(51, 17);
             this.jobStateToolStripStatusLabel.Text = "Stopped";
             // 
-            // sendTimer
-            // 
-            this.sendTimer.Tick += new System.EventHandler(this.sendTimer_Tick);
-            // 
-            // fileRunToolStripMenuItem
-            // 
-            this.fileRunToolStripMenuItem.Name = "fileRunToolStripMenuItem";
-            this.fileRunToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.fileRunToolStripMenuItem.Text = "&Run";
-            this.fileRunToolStripMenuItem.Click += new System.EventHandler(this.fileRunToolStripMenuItem_Click);
-            // 
             // sendInfoToolStripStatusLabel
             // 
             this.sendInfoToolStripStatusLabel.Name = "sendInfoToolStripStatusLabel";
             this.sendInfoToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
+            // 
+            // sendTimer
+            // 
+            this.sendTimer.Tick += new System.EventHandler(this.sendTimer_Tick);
+            // 
+            // mailListView
+            // 
+            this.mailListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            columnHeader1,
+            columnHeader2,
+            columnHeader3,
+            columnHeader4,
+            columnHeader5});
+            this.mailListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mailListView.FullRowSelect = true;
+            this.mailListView.GridLines = true;
+            this.mailListView.HideSelection = false;
+            this.mailListView.Location = new System.Drawing.Point(0, 0);
+            this.mailListView.Name = "mailListView";
+            this.mailListView.Size = new System.Drawing.Size(784, 225);
+            this.mailListView.TabIndex = 0;
+            this.mailListView.UseCompatibleStateImageBehavior = false;
+            this.mailListView.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "Status";
+            columnHeader1.Width = 100;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Timestamp";
+            columnHeader2.Width = 160;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Ticks";
+            columnHeader3.Width = 160;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "To-Address";
+            columnHeader4.Width = 160;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "Timeout";
+            columnHeader5.Width = 160;
             // 
             // AppMainForm
             // 
@@ -165,6 +225,7 @@
             this.Text = "Mail Check Client";
             this.Load += new System.EventHandler(this.AppMainForm_Load);
             splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(splitContainer1)).EndInit();
             splitContainer1.ResumeLayout(false);
             mainMenuStrip.ResumeLayout(false);
@@ -185,6 +246,7 @@
         private System.Windows.Forms.Timer sendTimer;
         private System.Windows.Forms.ToolStripMenuItem fileRunToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel sendInfoToolStripStatusLabel;
+        private System.Windows.Forms.ListView mailListView;
     }
 }
 
