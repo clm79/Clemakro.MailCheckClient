@@ -229,7 +229,7 @@ namespace Clemakro.MailCheckClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        [global::System.Configuration.DefaultSettingValueAttribute("600")]
         public decimal receiveTimeout {
             get {
                 return ((decimal)(this["receiveTimeout"]));
